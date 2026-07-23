@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cogniprime"
+version = "0.1.0"
+description = "CogniPrime — a recursive, self-healing Agentic-OS for autonomous venture operations"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "CogniPrime" }]
+keywords = ["agents", "llm", "rag", "agentic-os", "automation"]
+
+dependencies = [
+    "anthropic>=0.40",
+    "pydantic>=2.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+cogniprime = "cogniprime.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cogniprime*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
