@@ -28,7 +28,7 @@ cogniprime = "cogniprime.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["cogniprime*"]
+include = ["cogniprime*", "omegax*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
