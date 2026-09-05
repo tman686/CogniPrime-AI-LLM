@@ -1,0 +1,47 @@
+# Self-hosted CogniPrime stack — free / open-source only.
+#
+# Runs entirely on hardware you own (a RAID server, a home lab, a self-built
+# cloud). No paid SaaS: the reverse proxy is omegax's own pure-Python gateway,
+# and every datastore below is open-source and self-hostable.
+#
+#   docker compose -f deploy/docker-compose.yml up -d
+#
+# Then point the gateway at your services (see deploy/gateway_example.py).
+
+services:
+  # Relational + event store (decisions, projects, audit).
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: cogniprime
+      POSTGRES_PASSWORD: change_me_in_env
+      POSTGRES_DB: cogniprime
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # Vector memory (semantic search over trajectories / documents).
+  qdrant:
+    image: qdrant/qdrant:latest
+    volumes:
+      - qdrantdata:/qdrant/storage
+    restart: unless-stopped
+
+  # Knowledge graph (relationships: people, projects, code, customers).
+  neo4j:
+    image: neo4j:5-community
+    environment:
+      NEO4J_AUTH: neo4j/change_me_in_env
+    volumes:
+      - neo4jdata:/data
+    restart: unless-stopped
+
+  # Short-term / working memory + task queue.
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  qdrantdata:
+  neo4jdata:
