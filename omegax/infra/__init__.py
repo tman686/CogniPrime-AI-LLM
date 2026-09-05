@@ -7,5 +7,22 @@ pure-stdlib one you can run yourself.
 """
 
 from omegax.infra.gateway import Backend, ReverseProxyGateway, Route, RouteTable
+from omegax.infra.ssh import (
+    HostRegistry,
+    RemoteResult,
+    SSHConnector,
+    SSHHost,
+    default_lab_registry,
+)
 
-__all__ = ["Backend", "ReverseProxyGateway", "Route", "RouteTable"]
+__all__ = [
+    "Backend",
+    "ReverseProxyGateway",
+    "Route",
+    "RouteTable",
+    "HostRegistry",
+    "RemoteResult",
+    "SSHConnector",
+    "SSHHost",
+    "default_lab_registry",
+]
